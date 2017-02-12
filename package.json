@@ -1,0 +1,27 @@
+{
+  "name": "jitu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "express-negotiate": "0.0.5",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "jsontoxml": "0.0.11",
+    "mongoose": "^4.7.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1"
+  }
+}

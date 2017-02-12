@@ -6,7 +6,7 @@ var setContentTypeHeader = require('./src/common/middleware/SetContentTypeHeader
 var app = express();
 var port = 3000;
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
 
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization');
@@ -19,6 +19,9 @@ app.use(function(req, res, next) {
     }
 });
 
+app.use(express.static('src/views'))
+
+
 app.use(setContentTypeHeader);
 app.use(compression());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -28,7 +31,11 @@ var airportRouter = require('./src/routes/airportRoutes')();
 app.use('/api/airports', airportRouter);
 
 app.get('/api',  function (req, res) {
-    res.json('Welcome to my API !');
+    res.json('Welcome to my API 1!');
+});
+
+app.get('',  function (req, res) {
+    res.json('Welcome to my API 1!');
 });
 
 var server = app.listen(port,function(){

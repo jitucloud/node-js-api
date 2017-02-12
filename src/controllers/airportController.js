@@ -18,13 +18,15 @@ var getAllAirportList = function (req,res) {
          if(airportList != null && airportList != "")
          {
            var filtteredList = airportFilter.getAllAirportList(airportList,countrycode,airportcode,international,domestic, req.headers.host)
+		   
            if(filtteredList != null && filtteredList != "")
             DoContentNegotiation(filtteredList ,req.headers.accept,res);
            else
              CommonErrorResponse.NotFoundResponse(req,res);
-         }else{
-           CommonErrorResponse.InternalServerResponse(req,res);
-        }      
+	     }
+		 else
+		  CommonErrorResponse.InternalServerResponse(req,res);
+              
     }
  ); 
 };

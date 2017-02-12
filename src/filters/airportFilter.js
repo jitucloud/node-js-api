@@ -2,28 +2,26 @@ var filterService = function () {
   
    var getAllAirportList = function (airportList,countrycode,airportcode,international,domestic,host) {
      if(airportList != null && airportList != "")
-     {
-          
+     {  
+				 
         var filteredCountryList  = [];
-            //Filter for countrycode
+	  
+		 //Filter for countrycode
         if(countrycode != null && countrycode != ""){
-           airportList.forEach(function(element,index,array) {
-              if(element.country.code.toLowerCase() === countrycode.toLowerCase()){
-                 filteredCountryList.push(element);
-              };
-           });
+	    	filteredCountryList = airportList.filter(function(airport){
+		    return airport.country.code.toLowerCase() === countrycode.toLowerCase() ;			 
+		 });			
         } 
         else
-        filteredCountryList = airportList;
+        filteredCountryList = airportList; 
+		 
 
        //Filter for airportcode
-       var filteredAirportList =  [];
-       if(airportcode != null && airportcode != ""){
-             filteredCountryList.forEach(function(element,index,array) {
-              if(element.code.toLowerCase() === airportcode.toLowerCase()){
-                 filteredAirportList.push(element);
-              };
-           }); 
+        var filteredAirportList =  [];
+        if(airportcode != null && airportcode != ""){		   
+		   filteredAirportList = filteredCountryList.filter(function(airport){
+		   return airport.code.toLowerCase() === airportcode.toLowerCase();	
+		   });
          }
          else   
          filteredAirportList =   filteredCountryList;
@@ -31,68 +29,64 @@ var filterService = function () {
        //Filter for international
         var filteredInternationalList =  [];
         if(international != null && international != ""){
-             filteredAirportList.forEach(function(element,index,array) {
-              if(element.international_airport.toString().toLowerCase() === international.toLowerCase()){
-                 filteredInternationalList.push(element);
-              };
-           }); 
+			filteredInternationalList = filteredAirportList.filter(function(airport){
+		    return airport.international_airport.toString().toLowerCase() === international.toLowerCase();	
+		   });    			   
          }
          else
          filteredInternationalList = filteredAirportList;
 
        //Filter for domestic
        var filteredDomesticList =  [];
-       if(domestic != null && domestic != ""){
-             filteredInternationalList.forEach(function(element,index,array) {
-              if(element.regional_airport.toString().toLowerCase() === domestic.toLowerCase()){
-                 filteredDomesticList.push(element);
-              };
-           }); 
-         }
-         else
-         filteredDomesticList = filteredInternationalList;    
+       if(domestic != null && domestic != ""){		   
+		   filteredDomesticList = filteredInternationalList.filter(function(airport){
+		   return airport.regional_airport.toString().toLowerCase() === domestic.toLowerCase();	
+		  });   
+        }
+        else
+        filteredDomesticList = filteredInternationalList;    
+			
+			
      };
      return filteredDomesticList != null && filteredDomesticList != "" ? beautifyQueryOutPutResult(filteredDomesticList ,host) :[];
    };
 
    var getFilteredAirportByCode = function (airportList,airportcode,host) {
+	   
    var filteredAirportList  = [];
     if(airportList != null && airportList != "")
      {
         //Filter for countrycode
-        if(airportcode != null && airportcode != ""){
-           airportList.forEach(function(element,index,array) {
-              if(element.code.toLowerCase() === airportcode.toLowerCase()){
-                 filteredAirportList.push(element);
-              };
-           });
-        } 
-        else
-        filteredAirportList = airportList;
-     }
-     return filteredAirportList != null && filteredAirportList != "" ? beautifyFlatOutPutResult(filteredAirportList ,host) :[];
+        if(airportcode != null && airportcode != ""){			
+		  filteredAirportList = airportList.filter(function(airport){
+		      return airport.code.toLowerCase() === airportcode.toLowerCase();				
+           } 
+		 );
+		}
+	 }
+	 else
+          filteredAirportList = airportList;
+     
+	   return filteredAirportList != null && filteredAirportList != "" ? beautifyFlatOutPutResult(filteredAirportList ,host) :[];
    };
+
 
    var getFilteredAirportByCountryCode = function (airportList,countrycode,host) {
     var filteredCountryList  = [];
-    if(airportList != null && airportList != "")
-     {
+    if(airportList != null && airportList != "")     {
         //Filter for countrycode
-        if(countrycode != null && countrycode != ""){
-           airportList.forEach(function(element,index,array) {
-              if(element.country.code.toLowerCase() === countrycode.toLowerCase()){
-                 filteredCountryList.push(element);
-              };
-           });
-        } 
+        if(countrycode != null && countrycode != ""){			
+		  filteredCountryList = airportList.filter(function(airport){
+		  return airport.country.code.toLowerCase() === countrycode.toLowerCase();			
+        }
+												   );}
         else
         filteredCountryList = airportList;
      }
      return filteredCountryList != null && filteredCountryList != "" ? beautifyFlatOutPutResult(filteredCountryList ,host) :[];
    };
 
-   var getFilteredInternationalAirport = function (airportList,international,host)
-    {
+   var getFilteredInternationalAirport = function (airportList,international,host) {
     var filteredInternationalAirportList  = [];
     if(airportList != null && airportList != "")
      {
@@ -179,7 +173,7 @@ var filterService = function () {
                {  code : element.country.code,
                   displayName : element.country.display_name != null && element.country.display_name != ""  ? element.country.display_name : null, 
                   links :[{
-                    self : "http://" + host + "/api/airports/country/" + element.country.code.toLowerCase()
+                    self : "http://" + host + "/api/airports/countries/" + element.country.code.toLowerCase()
                  }]   
                }     
         });
@@ -188,10 +182,7 @@ var filterService = function () {
      return result;
    };
 
-
-
-
-return {
+  return {
        getAllAirportList:getAllAirportList,
        getFilteredAirportByCode:getFilteredAirportByCode,
        getFilteredAirportByCountryCode:getFilteredAirportByCountryCode,
@@ -200,5 +191,5 @@ return {
 
     };
 };
-
+  
 module.exports = filterService;

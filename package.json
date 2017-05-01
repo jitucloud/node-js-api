@@ -23,13 +23,5 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jitenderjagdishsharma/q-code-challenge.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jitenderjagdishsharma/q-code-challenge/issues"
-  },
-  "homepage": "https://github.com/jitenderjagdishsharma/q-code-challenge#readme"
+  }
 }
